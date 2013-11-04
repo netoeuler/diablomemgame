@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"	
+	android:padding="10dip"
+	android:orientation="vertical" >	
+	
+	<TableLayout
+	    android:layout_width="296dp"
+	    android:layout_height="wrap_content"
+	    android:stretchColumns="0,1"
+	    >
+	    
+	    <TableRow>
+	    	<Chronometer
+			    android:id="@+id/cronometro"
+			    android:layout_width="5dp"
+			    android:layout_height="wrap_content"
+			    android:format="Tempo: %s"
+			    android:gravity="left" />
+			    
+			    <TextView
+				android:id="@+id/pontos_label"
+				android:layout_width="5dp"
+				android:layout_height="wrap_content"
+				android:text="Pts: 0000"
+				android:gravity="right" />
+			    
+			    <TextView
+				android:id="@+id/incremento_label"
+				android:layout_width="50dp"
+				android:layout_height="wrap_content"
+				android:text="    "
+				android:gravity="right" />
+	    </TableRow>
+	    	    
+	</TableLayout>	
+	
+	<TableLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+
+	    <TableRow
+	        android:id="@+id/tableRow1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"  >	        
+
+	    	<ImageButton	    	    	    	    	    	    
+	            android:id="@+id/button_1_1"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:src="@drawable/fundo"
+	            android:onClick="onClickToTurn" />
+
+	        <ImageButton
+	            android:id="@+id/button_1_2"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:src="@drawable/fundo"
+	            android:onClick="onClickToTurn" />
+
+	        <ImageButton
+	            android:id="@+id/button_1_3"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:src="@drawable/fundo"
+	            android:onClick="onClickToTurn" />
+
+	        <ImageButton
+	            android:id="@+id/button_1_4"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:src="@drawable/fundo"
+	            android:onClick="onClickToTurn" />
+	    </TableRow>
+
+	    <TableRow
+	        android:id="@+id/tableRow2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:gravity="center" >
+
+	        <ImageButton
+	            android:id="@+id/button_2_1"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:src="@drawable/fundo"
+	            android:onClick="onClickToTurn" />
+
+	        <ImageButton
+	            android:id="@+id/button_2_2"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:src="@drawable/fundo"
+	            android:onClick="onClickToTurn" />
+
+	        <ImageButton
+	            android:id="@+id/button_2_3"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:src="@drawable/fundo"
+	            android:onClick="onClickToTurn" />
+
+	        <ImageButton
+	            android:id="@+id/button_2_4"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:src="@drawable/fundo"
+	            android:onClick="onClickToTurn" />
+	    </TableRow>
+
+	    <TableRow
+	        android:id="@+id/tableRow3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:gravity="center" >
+
+	        <ImageButton
+	            android:id="@+id/button_3_1"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:src="@drawable/fundo"
+	            android:onClick="onClickToTurn" />
+
+	        <ImageButton
+	            android:id="@+id/button_3_2"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:src="@drawable/fundo"
+	            android:onClick="onClickToTurn" />
+
+	        <ImageButton
+	            android:id="@+id/button_3_3"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:src="@drawable/fundo"
+	            android:onClick="onClickToTurn" />
+
+	        <ImageButton
+	            android:id="@+id/button_3_4"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:src="@drawable/fundo"
+	            android:onClick="onClickToTurn" />
+	    </TableRow>
+	    
+	    <TableRow
+	        android:id="@+id/tableRow4"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:gravity="center" >
+	        
+	        <Button
+		    android:id="@+id/voltar_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Voltar"
+			android:visibility="invisible"
+			android:onClick="onClickVoltar" />
+	        
+	    </TableRow>
+	    
+	</TableLayout>
+	
+</LinearLayout>
