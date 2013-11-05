@@ -1,5 +1,7 @@
 package com.example.diablomemgame;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,30 +24,69 @@ public class NewGame extends Activity{
 	int incremento;
 	boolean sequencia;
 	
-	String cartaSelecionada1 = null;
-	String cartaSelecionada2 = null;
+	String cartaSelecionada1;
+	String cartaSelecionada2;
 	
 	ImageButton button1;
 	ImageButton button2;
 	TextView pontosLabel;
 	TextView incrementoLabel;
 	
+	ArrayList<Integer> invisibleIds;
+	
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_newgame);
 		
-		pontos = 0;
-		numCartas = 6;
-		incremento = 0;
-		sequencia = false;
-		
-		proc = new ProcessadorJogo();
 		pontosLabel = (TextView) findViewById(R.id.pontos_label);
 		incrementoLabel = (TextView) findViewById(R.id.incremento_label);
 		
 		cronometro = (Chronometer) findViewById(R.id.cronometro);
-		cronometro.setBase(SystemClock.elapsedRealtime());
-		cronometro.start();		
+				
+		if (savedInstanceState == null){
+			proc = new ProcessadorJogo();
+			
+			cartaSelecionada1 = null;
+			cartaSelecionada2 = null;			
+			
+			pontos = 0;
+			numCartas = 6;
+			incremento = 0;
+			sequencia = false;
+			
+			cronometro.setBase(SystemClock.elapsedRealtime());
+			
+			invisibleIds = new ArrayList<Integer>();
+		}
+		else{
+			proc = new ProcessadorJogo(new String[][] {savedInstanceState.getStringArray("cartas1"),
+					savedInstanceState.getStringArray("cartas2"), savedInstanceState.getStringArray("cartas3")});
+			
+			cartaSelecionada1 = savedInstanceState.getString("cartaSelecionada1");
+			if (cartaSelecionada1 != null) 
+				turnById(Integer.parseInt(cartaSelecionada1.split(" ")[1]));
+			cartaSelecionada2 = savedInstanceState.getString("cartaSelecionada2");
+			if (cartaSelecionada2 != null) 
+				turnById(Integer.parseInt(cartaSelecionada2.split(" ")[1]));
+			
+			if (cartaSelecionada1 != null && cartaSelecionada2 != null)
+				checaCombinacao();
+			
+			pontos = savedInstanceState.getInt("pontos");
+			pontosLabel.setText("Pts: "+pontosFormatado());
+			numCartas = savedInstanceState.getInt("numCartas");
+			incremento = savedInstanceState.getInt("incremento");
+			sequencia = savedInstanceState.getBoolean("sequencia");
+			
+			cronometro.setBase(savedInstanceState.getLong("cronometro"));
+			
+			invisibleIds = savedInstanceState.getIntegerArrayList("invisibleIds");
+			
+			for (Integer invId : invisibleIds)
+				findViewById(invId).setVisibility(View.INVISIBLE);
+		}
+		
+		cronometro.start();
 	}
 	
 	public void onClickVoltar(View v){		
@@ -69,16 +110,29 @@ public class NewGame extends Activity{
 		}
 	}
 	
+	private void turnById(int id){
+		ImageButton button = (ImageButton) findViewById(id);
+		
+		String splitId = button.getResources().getResourceName(id)+"";
+		String[] arr = splitId.split("_");
+		
+		int ind1 = Integer.parseInt(arr[1])-1;
+		int ind2 = Integer.parseInt(arr[2])-1;
+		
+		String carta = proc.getCartas()[ind1][ind2];
+		button.setImageResource( getDrawableCarta(carta) );	
+	}
+	
 	public void selecionarCarta(String carta){
 		if (cartaSelecionada1 == null)
 			cartaSelecionada1 = carta;
-		else if (cartaSelecionada2 == null){
+		else if (cartaSelecionada2 == null && !carta.equals(cartaSelecionada1)){
 			cartaSelecionada2 = carta;								
 			checaCombinacao();
 		}		
 	}
 	
-	public void checaCombinacao(){
+	private void checaCombinacao(){
 		String c1 = cartaSelecionada1.split(" ")[0];
 		String c2 = cartaSelecionada2.split(" ")[0];
 		
@@ -108,6 +162,8 @@ public class NewGame extends Activity{
 				public void run(){					
 					button1.setVisibility(View.INVISIBLE);			
 					button2.setVisibility(View.INVISIBLE);
+					invisibleIds.add(Integer.parseInt(cartaSelecionada1.split(" ")[1]));
+					invisibleIds.add(Integer.parseInt(cartaSelecionada2.split(" ")[1]));
 					incrementoLabel.setText("    ");
 					pontosLabel.setText("Pts: "+pontosFormatado());
 					cartaSelecionada1 = null;
@@ -166,6 +222,23 @@ public class NewGame extends Activity{
 			return "0"+pontos;
 		else
 			return pontos+"";			
+	}
+	
+	public void onSaveInstanceState(Bundle outState){
+		super.onSaveInstanceState(outState);
+		
+		outState.putStringArray("cartas1", proc.getCartas()[0]);
+		outState.putStringArray("cartas2", proc.getCartas()[1]);
+		outState.putStringArray("cartas3", proc.getCartas()[2]);
+		outState.putString("cartaSelecionada1", cartaSelecionada1);
+		outState.putString("cartaSelecionada2", cartaSelecionada2);
+		outState.putInt("pontos", pontos);
+		outState.putInt("numCartas", numCartas);
+		outState.putInt("incremento", incremento);
+		outState.putBoolean("sequencia", sequencia);
+		outState.putLong("cronometro", cronometro.getBase());
+		outState.putIntegerArrayList("invisibleIds", invisibleIds);
+		
 	}
 
 }

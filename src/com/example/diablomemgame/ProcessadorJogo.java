@@ -15,12 +15,16 @@ public class ProcessadorJogo {
 		embaralhaCartas();
 	}
 	
+	public ProcessadorJogo(String[][] cartas){
+		this.cartas = cartas;
+	}	
+	
 	private void initCartas(){
 		int indNomes = 0;
 		
 		for (int i=0 ; i < 3 ; i++)
 			for (int j=0 ; j < 4 ; j++){
-				cartas[i][j] = nomes[indNomes%6];
+				cartas[i][j] = nomes[indNomes % 6];
 				indNomes++;
 			}
 	}
